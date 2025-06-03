@@ -1,24 +1,23 @@
-package com.ilerna.classroom_booking.model.entities;
+package com.ilerna.classroom_booking.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
-@Table(name = "equipment")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Equipment {
+public class ClassroomType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String equimentName;
-    @ManyToMany(mappedBy = "equipments")
-    private Set<Classroom> classrooms = new HashSet<>();
+    private String nombreTipo;
+    @Column(length = 500)
+    private String descripcion;
+    @OneToMany(mappedBy = "type")
+    private List<Classroom> aulas;
 }

@@ -1,4 +1,4 @@
-package com.ilerna.classroom_booking.model.entities;
+package com.ilerna.classroom_booking.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
