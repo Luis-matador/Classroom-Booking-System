@@ -1,11 +1,18 @@
 package com.ilerna.classroom_booking.service;
 
+import com.ilerna.classroom_booking.model.ClassroomType;
+
 import java.util.List;
+import java.util.Optional;
 
 public interface ClassroomTypeService {
-    ClassroomTypeService saveClassroomType(ClassroomTypeService classroomType);
-    ClassroomTypeService getClassroomTypeById(Long id);
-    List<ClassroomTypeService> getAllClassroomTypes();
-    ClassroomTypeService updateClassroomType(ClassroomTypeService classroomType);
+    ClassroomType saveClassroomType(ClassroomType classroomType);
+
+    Optional<ClassroomType> getClassroomTypeById(Long id);
+
+    List<ClassroomType> getAllClassroomTypes();
+
+    ClassroomType updateClassroomType(ClassroomType classroomType);
+
     void deleteClassroomTypeById(Long id);
 }

@@ -1,27 +1,32 @@
 package com.ilerna.classroom_booking.service.Implements;
 
+import com.ilerna.classroom_booking.model.Equipment;
 import com.ilerna.classroom_booking.service.EquipmentService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class EquipmentImpl implements EquipmentService {
+
     @Override
-    public EquipmentService saveEquipment(EquipmentService equipment) {
+    public Equipment saveEquipment(Equipment equipment) {
         return null;
     }
 
     @Override
-    public EquipmentService getEquipmentById(Long id) {
-        return null;
+    public Optional<Equipment> getEquipmentById(Long id) {
+        return Optional.empty();
     }
 
     @Override
-    public List<EquipmentService> getAllEquipments() {
+    public List<Equipment> getAllEquipments() {
         return List.of();
     }
 
     @Override
-    public EquipmentService updateEquipment(EquipmentService equipment) {
+    public Equipment updateEquipment(Equipment equipment) {
         return null;
     }
 

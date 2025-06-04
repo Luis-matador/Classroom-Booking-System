@@ -2,9 +2,12 @@ package com.ilerna.classroom_booking.service.Implements;
 
 import com.ilerna.classroom_booking.model.Booking;
 import com.ilerna.classroom_booking.service.BookingService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class BookingImpl implements BookingService {
 
     @Override
@@ -13,8 +16,8 @@ public class BookingImpl implements BookingService {
     }
 
     @Override
-    public Booking getBookingById(Long id) {
-        return null;
+    public Optional<Booking> getBookingById(Long id) {
+        return Optional.empty();
     }
 
     @Override

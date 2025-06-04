@@ -1,19 +1,32 @@
 package com.ilerna.classroom_booking.service.Implements;
 
 import com.ilerna.classroom_booking.model.ReservationHistory;
+import com.ilerna.classroom_booking.repository.ReservationHistoryRepository;
 import com.ilerna.classroom_booking.service.ReservationHistoryService;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class ReservationHistoryImpl implements ReservationHistoryService {
+
+    private final ReservationHistoryRepository reservationHistoryRepository;
+
+    public ReservationHistoryImpl(ReservationHistoryRepository reservationHistoryRepository) {
+        this.reservationHistoryRepository = reservationHistoryRepository;
+    }
+
+
     @Override
-    public ReservationHistoryService saveReservationHistory(ReservationHistory reservationHistory) {
+    public ReservationHistory saveReservationHistory(ReservationHistory reservationHistory) {
         return null;
     }
 
     @Override
-    public ReservationHistory getReservationHistoryById(Long id) {
-        return null;
+    public Optional<ReservationHistory> getReservationHistoryById(Long id) {
+        return Optional.empty();
     }
 
     @Override

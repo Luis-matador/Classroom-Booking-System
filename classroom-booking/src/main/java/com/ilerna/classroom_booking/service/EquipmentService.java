@@ -1,11 +1,19 @@
 package com.ilerna.classroom_booking.service;
 
+import com.ilerna.classroom_booking.model.Equipment;
+
 import java.util.List;
+import java.util.Optional;
 
 public interface EquipmentService {
-    EquipmentService saveEquipment(EquipmentService equipment);
-    EquipmentService getEquipmentById(Long id);
-    List<EquipmentService> getAllEquipments();
-    EquipmentService updateEquipment(EquipmentService equipment);
+
+    Equipment saveEquipment(Equipment equipment);
+
+    Optional<Equipment> getEquipmentById(Long id);
+
+    List<Equipment> getAllEquipments();
+
+    Equipment updateEquipment(Equipment equipment);
+
     void deleteEquipmentById(Long id);
 }

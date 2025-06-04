@@ -1,27 +1,32 @@
 package com.ilerna.classroom_booking.service.Implements;
 
+import com.ilerna.classroom_booking.model.Classroom;
 import com.ilerna.classroom_booking.service.ClassroomService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class ClassroomImpl implements ClassroomService {
+
     @Override
-    public ClassroomService saveClassroom(ClassroomService classroom) {
+    public Classroom saveClassroom(Classroom classroom) {
         return null;
     }
 
     @Override
-    public ClassroomService getClassroomById(Long id) {
-        return null;
+    public Optional<Classroom> getClassroomById(Long id) {
+        return Optional.empty();
     }
 
     @Override
-    public List<ClassroomService> getAllClassrooms() {
+    public List<Classroom> getAllClassrooms() {
         return List.of();
     }
 
     @Override
-    public ClassroomService updateClassroom(ClassroomService classroom) {
+    public Classroom updateClassroom(Classroom classroom) {
         return null;
     }
 
