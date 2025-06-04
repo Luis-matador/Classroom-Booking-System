@@ -1,10 +1,8 @@
 package com.ilerna.classroom_booking.service;
 
-import com.ilerna.classroom_booking.model.Classroom;
-
 import java.util.List;
+import com.ilerna.classroom_booking.model.Classroom;
 import java.util.Optional;
-
 
 public interface ClassroomService {
     Classroom saveClassroom(Classroom classroom);
@@ -16,5 +14,4 @@ public interface ClassroomService {
     Classroom updateClassroom(Long id, Classroom classroom);
 
     void deleteClassroomById(Long id);
-
 }

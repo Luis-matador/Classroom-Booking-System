@@ -22,7 +22,20 @@ public class ClassroomTypeImpl implements ClassroomTypeService {
     @Transactional
     @Override
     public ClassroomType saveClassroomType(ClassroomType classroomType) {
-        return null;
+        if (classroomType.getNombreTipo() == null || classroomType.getNombreTipo().trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre del tipo de clase no puede estar vacío");
+        }
+
+        if (classroomTypeRepository.findAll().stream()
+                .anyMatch(ct -> ct.getNombreTipo().equalsIgnoreCase(classroomType.getNombreTipo()))) {
+            throw new IllegalArgumentException("Ya existe un tipo de clase con ese nombre");
+        }
+
+        if (classroomType.getDescripcion() != null && classroomType.getDescripcion().length() > 500) {
+            throw new IllegalArgumentException("La descripción no puede exceder los 500 caracteres");
+        }
+    
+        return classroomTypeRepository.save(classroomType);
     }
 
     @Override
