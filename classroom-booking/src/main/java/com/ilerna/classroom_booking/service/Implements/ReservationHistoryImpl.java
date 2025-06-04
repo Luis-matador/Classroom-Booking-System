@@ -18,7 +18,6 @@ public class ReservationHistoryImpl implements ReservationHistoryService {
         this.reservationHistoryRepository = reservationHistoryRepository;
     }
 
-
     @Override
     public ReservationHistory saveReservationHistory(ReservationHistory reservationHistory) {
         return null;
