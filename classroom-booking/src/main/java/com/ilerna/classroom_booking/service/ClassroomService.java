@@ -13,7 +13,7 @@ public interface ClassroomService {
 
     List<Classroom> getAllClassrooms();
 
-    Classroom updateClassroom(Classroom classroom);
+    Classroom updateClassroom(Long id, Classroom classroom);
 
     void deleteClassroomById(Long id);
 

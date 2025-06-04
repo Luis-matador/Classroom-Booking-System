@@ -12,7 +12,7 @@ public interface ClassroomTypeService {
 
     List<ClassroomType> getAllClassroomTypes();
 
-    ClassroomType updateClassroomType(ClassroomType classroomType);
+    ClassroomType updateClassroomType(Long id, ClassroomType classroomType);
 
     void deleteClassroomTypeById(Long id);
 }

@@ -40,42 +40,23 @@ public class AvailabilityImpl implements AvailabilityService {
         return availabilityRepository.save(availability);
     }
 
-
     @Override
     public Optional<Availability> getAvailabilityById(Long id) {
-        return Optional.ofNullable(availabilityRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("La disponibilidad con ID " + id + " no existe")));
+        return Optional.empty();
     }
 
     @Override
     public List<Availability> getAllAvailabilities() {
-        return availabilityRepository.findAll();
+        return List.of();
     }
 
-    @Transactional
     @Override
     public Availability updateAvailability(Availability availability) {
-        if (availability == null || availability.getId() == null) {
-            throw new IllegalArgumentException("La disponibilidad o el ID no pueden estar vacíos");
-        }
-        Availability existingAvailability = availabilityRepository.findById(availability.getId())
-                .orElseThrow(() -> new IllegalArgumentException("La disponibilidad con ID " + availability.getId() + " no es posible"));
-
-        existingAvailability.setDayOfWeek(availability.getDayOfWeek());
-        existingAvailability.setStartTime(availability.getStartTime());
-        existingAvailability.setEndTime(availability.getEndTime());
-        existingAvailability.setClassroom(availability.getClassroom());
-
-        return availabilityRepository.save(existingAvailability);
+        return null;
     }
 
-    @Transactional
     @Override
     public void deleteAvailabilityById(Long id) {
-        Optional<Availability> availability = getAvailabilityById(id);
-        if (availability.isEmpty()) {
-            throw new RuntimeException("La disponibilidad con ID " + id + " no existe");
-        }
-        availabilityRepository.deleteById(id);
+
     }
 }
