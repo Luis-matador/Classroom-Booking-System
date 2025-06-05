@@ -18,7 +18,7 @@ public class Equipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String equimentName;
+    private String equipmentName;
     @ManyToMany(mappedBy = "equipments")
     private Set<Classroom> classrooms = new HashSet<>();
 }
