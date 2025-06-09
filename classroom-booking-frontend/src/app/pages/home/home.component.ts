@@ -1,12 +1,4 @@
-import { Component, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
-
-interface Centro {
-  nombre: string;
-  imagen: string;
-  direccion: string;
-  telefono: string;
-  correo: string;
-}
+import { Component, OnInit, AfterViewInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -14,118 +6,150 @@ interface Centro {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  centros: Centro[] = [
-    {
-      nombre: 'Madrid',
-      imagen: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=300&fit=crop&crop=center',
-      direccion: 'Calle Alcalá, 123',
-      telefono: '91 123 45 67',
-      correo: 'madrid@ilerna.es'
-    },
-    {
-      nombre: 'Sevilla',
-      imagen: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=300&fit=crop&crop=center',
-      direccion: 'Avenida de la Constitución, 45',
-      telefono: '95 456 78 90',
-      correo: 'sevilla@ilerna.es'
-    },
-    {
-      nombre: 'Barcelona',
-      imagen: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600&h=300&fit=crop&crop=center',
-      direccion: 'Passeig de Gràcia, 67',
-      telefono: '93 789 01 23',
-      correo: 'barcelona@ilerna.es'
-    },
-    {
-      nombre: 'Valencia',
-      imagen: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=300&fit=crop&crop=center',
-      direccion: 'Calle Colón, 89',
-      telefono: '96 234 56 78',
-      correo: 'valencia@ilerna.es'
-    },
-    {
-      nombre: 'Málaga',
-      imagen: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=300&fit=crop&crop=center',
-      direccion: 'Calle Larios, 12',
-      telefono: '95 345 67 89',
-      correo: 'malaga@ilerna.es'
-    }
-  ];
 
-  centroActual: number = 1;
-  autoSlide: any;
+  @ViewChild('carouselWrapper') carouselWrapper!: ElementRef;
+  @ViewChild('carousel') carousel!: ElementRef;
+  @ViewChild('indicators') indicatorsContainer!: ElementRef;
+
+  currentSlide = 0;
+  isTransitioning = false;
+  autoplayInterval: any;
 
   constructor(private renderer: Renderer2) {}
 
-  ngOnInit(): void {
-    this.actualizarCentro();
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    // Eventos
-    this.renderer.listen(document.querySelector('.hamburger'), 'click', () => {
-      const navMenu = document.querySelector('.nav-menu') as HTMLElement;
-      navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
-    });
+    this.setupSidebar();
+    this.setupCarousel();
+  }
 
-    this.renderer.listen(document.querySelector('.arrow-left'), 'click', () => {
-      this.centroActual = (this.centroActual - 1 + this.centros.length) % this.centros.length;
-      this.actualizarCentro();
-    });
+  setupSidebar(): void {
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('closeBtn');
+    const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
 
-    this.renderer.listen(document.querySelector('.arrow-right'), 'click', () => {
-      this.centroActual = (this.centroActual + 1) % this.centros.length;
-      this.actualizarCentro();
-    });
+    const toggleSidebar = () => {
+      menuToggle?.classList.toggle('active');
+      sidebar?.classList.toggle('active');
+      overlay?.classList.toggle('active');
+      document.body.style.overflow = sidebar?.classList.contains('active') ? 'hidden' : 'auto';
+    };
 
-    this.renderer.listen(document, 'keydown', (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {
-        this.centroActual = (this.centroActual - 1 + this.centros.length) % this.centros.length;
-        this.actualizarCentro();
-      } else if (e.key === 'ArrowRight') {
-        this.centroActual = (this.centroActual + 1) % this.centros.length;
-        this.actualizarCentro();
+    const closeSidebar = () => {
+      menuToggle?.classList.remove('active');
+      sidebar?.classList.remove('active');
+      overlay?.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    };
+
+    menuToggle?.addEventListener('click', toggleSidebar);
+    closeBtn?.addEventListener('click', closeSidebar);
+    overlay?.addEventListener('click', closeSidebar);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && sidebar?.classList.contains('active')) {
+        closeSidebar();
       }
     });
 
-    const slider = document.querySelector('.slider-container');
-    if (slider) {
-      this.renderer.listen(slider, 'mouseenter', () => clearInterval(this.autoSlide));
-      this.renderer.listen(slider, 'mouseleave', () => {
-        this.autoSlide = setInterval(() => {
-          this.centroActual = (this.centroActual + 1) % this.centros.length;
-          this.actualizarCentro();
-        }, 5000);
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeSidebar();
+        console.log('Navegando a:', (e.currentTarget as HTMLAnchorElement).getAttribute('href'));
       });
-    }
-
-    this.autoSlide = setInterval(() => {
-      this.centroActual = (this.centroActual + 1) % this.centros.length;
-      this.actualizarCentro();
-    }, 5000);
+    });
   }
 
-  actualizarCentro(): void {
-    const centro = this.centros[this.centroActual];
-    const imagen = document.querySelector('.center-image') as HTMLImageElement;
-    const nombre = document.querySelector('.center-name') as HTMLElement;
-    const footerInfo = document.querySelector('.footer-info') as HTMLElement;
-    const card = document.querySelector('.center-card') as HTMLElement;
+  setupCarousel(): void {
+    const slides = this.carouselWrapper.nativeElement.querySelectorAll('.carousel-slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
 
-    if (imagen && nombre && footerInfo && card) {
-      card.style.opacity = '0.5';
+    slides.forEach((_: any, index: number) => {
+      const indicator = this.renderer.createElement('div');
+      this.renderer.addClass(indicator, 'indicator');
+      if (index === 0) this.renderer.addClass(indicator, 'active');
+      this.renderer.listen(indicator, 'click', () => this.goToSlide(index));
+      this.renderer.appendChild(this.indicatorsContainer.nativeElement, indicator);
+    });
 
-      setTimeout(() => {
-        imagen.src = centro.imagen;
-        imagen.alt = `Centro ILERNA ${centro.nombre}`;
-        nombre.textContent = centro.nombre;
-        footerInfo.innerHTML = `
-          <span><strong>Dirección:</strong> ${centro.direccion}</span>
-          <span><strong>Teléfono:</strong> ${centro.telefono}</span>
-          <span><strong>Correo:</strong> ${centro.correo}</span>
-        `;
-        card.style.opacity = '1';
-      }, 200);
-    }
+    nextBtn?.addEventListener('click', () => this.nextSlide(slides));
+    prevBtn?.addEventListener('click', () => this.prevSlide(slides));
+
+    this.autoplayInterval = setInterval(() => this.nextSlide(slides), 5000);
+
+    this.carousel.nativeElement.addEventListener('mouseenter', () => clearInterval(this.autoplayInterval));
+    this.carousel.nativeElement.addEventListener('mouseleave', () => {
+      this.autoplayInterval = setInterval(() => this.nextSlide(slides), 5000);
+    });
+
+    slides.forEach((slide: HTMLElement) => {
+      slide.addEventListener('click', () => {
+        const url = slide.getAttribute('data-url');
+        if (url) {
+          alert(`Navegando a: ${url}\n\nEn una implementación real, esto abriría la página correspondiente.`);
+        }
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') this.prevSlide(slides);
+      if (e.key === 'ArrowRight') this.nextSlide(slides);
+    });
+
+    let startX = 0;
+    let endX = 0;
+
+    this.carousel.nativeElement.addEventListener('touchstart', (e: TouchEvent) => {
+      startX = e.touches[0].clientX;
+    });
+
+    this.carousel.nativeElement.addEventListener('touchend', (e: TouchEvent) => {
+      endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      const swipeThreshold = 50;
+      if (Math.abs(diff) > swipeThreshold) {
+        diff > 0 ? this.nextSlide(slides) : this.prevSlide(slides);
+      }
+    });
+
+    const header = document.querySelector('.header') as HTMLElement | null;
+    if (header) header.style.transform = 'translateY(0)';
+  }
+
+  updateCarousel(slides: NodeListOf<HTMLElement>): void {
+    if (this.isTransitioning || !this.carouselWrapper) return;
+
+    this.isTransitioning = true;
+    this.carouselWrapper.nativeElement.style.transform = `translateX(-${this.currentSlide * 100}%)`;
+
+    const indicators = this.indicatorsContainer.nativeElement.querySelectorAll('.indicator');
+    indicators.forEach((indicator: Element, index: number) => {
+      indicator.classList.toggle('active', index === this.currentSlide);
+    });
+
+    setTimeout(() => {
+      this.isTransitioning = false;
+    }, 500);
+  }
+
+  nextSlide(slides: NodeListOf<HTMLElement>): void {
+    this.currentSlide = (this.currentSlide + 1) % slides.length;
+    this.updateCarousel(slides);
+  }
+
+  prevSlide(slides: NodeListOf<HTMLElement>): void {
+    this.currentSlide = (this.currentSlide - 1 + slides.length) % slides.length;
+    this.updateCarousel(slides);
+  }
+
+  goToSlide(index: number): void {
+    this.currentSlide = index;
+    const slides = this.carouselWrapper.nativeElement.querySelectorAll('.carousel-slide');
+    this.updateCarousel(slides);
   }
 }
