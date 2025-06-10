@@ -1,9 +1,14 @@
-import { Component, OnInit, AfterViewInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Renderer2, ElementRef, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { HeaderComponent } from "../../components/header/header.component";
+import { FooterComponent } from "../../components/footer/footer.component";
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, FooterComponent]
 })
 export class HomeComponent implements OnInit, AfterViewInit {
 
@@ -15,16 +20,23 @@ export class HomeComponent implements OnInit, AfterViewInit {
   isTransitioning = false;
   autoplayInterval: any;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.setupSidebar();
-    this.setupCarousel();
+    if (isPlatformBrowser(this.platformId)) {
+      this.setupSidebar();
+      this.setupCarousel();
+    }
   }
 
   setupSidebar(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
@@ -65,6 +77,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   setupCarousel(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    
     const slides = this.carouselWrapper.nativeElement.querySelectorAll('.carousel-slide');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
