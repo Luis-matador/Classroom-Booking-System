@@ -1,0 +1,18 @@
+<div class="calendar-container">
+  <div class="controls" style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+    <div>
+      <button (click)="previousMonth()">Mes anterior</button>
+      <button (click)="today()">Hoy</button>
+      <button (click)="nextMonth()">Mes siguiente</button>
+    </div>
+    <div>
+      <button (click)="goHome()">Volver al inicio</button>
+    </div>
+  </div>
+
+  <mwl-calendar-month-view
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh">
+  </mwl-calendar-month-view>
+</div>
