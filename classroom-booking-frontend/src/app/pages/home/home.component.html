@@ -1,59 +1,50 @@
-<app-header></app-header>
-<main class="main-content">
-        <div class="carousel-container">
-            <div class="carousel-title">
-                <h2>Descubre Nuestros Cursos</h2>
-                <p>Formación profesional de calidad para tu futuro</p>
-            </div>
-            
-            <div class="carousel">
-                <div class="carousel-wrapper" id="carouselWrapper">
-                    <div class="carousel-slide" data-url="https://example.com/enfermeria">
-                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Enfermería">
-                        <div class="carousel-overlay">
-                            <h3>Técnico en Cuidados Auxiliares de Enfermería</h3>
-                            <p>Fórmate como profesional sanitario y contribuye al bienestar de las personas</p>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-slide" data-url="https://example.com/farmacia">
-                        <img src="https://images.unsplash.com/photo-1576671081837-49000212a370?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Farmacia">
-                        <div class="carousel-overlay">
-                            <h3>Técnico en Farmacia y Parafarmacia</h3>
-                            <p>Especialízate en el mundo farmacéutico y la atención sanitaria</p>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-slide" data-url="https://example.com/laboratorio">
-                        <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Laboratorio">
-                        <div class="carousel-overlay">
-                            <h3>Técnico en Laboratorio Clínico</h3>
-                            <p>Conviértete en un experto en análisis clínicos y diagnóstico</p>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-slide" data-url="https://example.com/emergencias">
-                        <img src="https://images.unsplash.com/photo-1504813184591-01572f98c85f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Emergencias Sanitarias">
-                        <div class="carousel-overlay">
-                            <h3>Técnico en Emergencias Sanitarias</h3>
-                            <p>Prepárate para salvar vidas en situaciones de emergencia</p>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-slide" data-url="https://example.com/administracion">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Administración">
-                        <div class="carousel-overlay">
-                            <h3>Técnico en Gestión Administrativa</h3>
-                            <p>Domina la gestión empresarial y administrativa</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="carousel-nav prev" id="prevBtn">‹</button>
-                <button class="carousel-nav next" id="nextBtn">›</button>
-            </div>
-            
-            <div class="carousel-indicators" id="indicators"></div>
+<div class="page-container">
+  <app-header></app-header>
+  <main class="main-content">
+    <div id="carouselExampleCaptions" class="carousel slide">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="d-flex justify-content-center">
+            <img src="../../../assets/planta1-1.png" class="d-block" alt="...">
+          </div>
+          <div class="carousel-caption d-none d-md-block">
+            <h5>First slide label</h5>
+            <p>Some representative placeholder content for the first slide.</p>
+          </div>
         </div>
-    </main>
-<app-footer></app-footer>
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <img src="../../../assets/planta1-2.png" class="d-block" alt="...">
+          </div>
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Second slide label</h5>
+            <p>Some representative placeholder content for the second slide.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <img src="../../../assets/planta2-1.png" class="d-block" alt="...">
+          </div>
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Third slide label</h5>
+            <p>Some representative placeholder content for the third slide.</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev bg-dark" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next bg-dark" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </main>
+  <app-footer></app-footer>
+</div>

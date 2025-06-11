@@ -1,33 +1,24 @@
- <header class="header">
-        <div class="nav-container">
-            <div class="logo">ILERNA</div>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#reservas">Mis Reservas</a></li>
-                </ul>
-            </nav>
-            <div class="menu-toggle" id="menuToggle">
-                <div class="menu-dots"></div>
-                <div class="menu-dots"></div>
-                <div class="menu-dots"></div>
-            </div>
-        </div>
-    </header>
-
-    <div class="overlay" id="overlay"></div>
-
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2 class="sidebar-title">Menú</h2>
-            <button class="close-btn" id="closeBtn"></button>
-        </div>
-        <ul class="sidebar-menu">
-            <li><a href="#inicio"><span class="icon">🏠</span>Inicio</a></li>
-            <li><a href="#reservas"><span class="icon">📅</span>Mis Reservas</a></li>
-            <li><a href="#perfil"><span class="icon">👤</span>Mi Perfil</a></li>
-            <li><a href="#cursos"><span class="icon">📚</span>Cursos</a></li>
-            <li><a href="#calendario"><span class="icon">🗓️</span>Calendario</a></li>
-            <li><a href="#configuracion"><span class="icon">⚙️</span>Configuración</a></li>
+<nav class="navbar navbar-dark bg-light py-3">
+  <div class="container">
+    <h1 class="navbar-brand h1">ILERNA</h1>
+    <button class="navbar-toggler bg-black" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item-1">
+            <a class="nav-link " aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item-1">
+            <a class="nav-link" href="#">Link</a>
+          </li>
         </ul>
-    </aside>
+      </div>
+    </div>
+  </div>
+</nav>
