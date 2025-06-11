@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
+import { ReservationListComponent } from './pages/reservation-list/reservation-list.component';
 import { MapComponent } from './components/map/map.component';
+import { CalendarUtils } from 'angular-calendar';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +11,12 @@ import { MapComponent } from './components/map/map.component';
   imports: [
     CommonModule,
     MapComponent,
-    HomeComponent
-],
+    HomeComponent,
+    ReservationListComponent
+  ],
+  providers: [CalendarUtils], // Agregado aquí
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
-  
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'classroom-booking-frontend';
