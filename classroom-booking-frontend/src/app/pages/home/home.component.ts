@@ -2,13 +2,14 @@ import { Component, OnInit, AfterViewInit, Renderer2, ElementRef, ViewChild, Inj
 import { HeaderComponent } from "../../components/header/header.component";
 import { FooterComponent } from "../../components/footer/footer.component";
 import { isPlatformBrowser } from '@angular/common';
+import { MapComponent } from '../../components/map/map.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   standalone: true,
-  imports: [HeaderComponent, FooterComponent]
+  imports: [HeaderComponent, FooterComponent, MapComponent]
 })
 export class HomeComponent implements OnInit, AfterViewInit {
 

@@ -29,7 +29,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/app/components/header/header.component.css"
+              "src/app/components/header/header.component.css",
+              "node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": [
               
