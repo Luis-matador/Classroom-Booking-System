@@ -20,17 +20,43 @@ export class MapComponent implements AfterViewInit {
   private async initMap(): Promise<void> {
     const L = await import('leaflet'); 
 
+    const bounds: L.LatLngBoundsExpression = [[0, 0], [1000, 1000]];
+
     this.map = L.map('map', {
       crs: L.CRS.Simple,
       minZoom: -2,
-      maxZoom: 2
+      maxZoom: 2,
+      maxBounds: bounds,
+      maxBoundsViscosity: 1.0 
     });
 
-    const bounds: L.LatLngBoundsExpression = [[0, 0], [800, 1000]];
-    L.imageOverlay('assets/planta1-1.png', bounds).addTo(this.map);
+    L.imageOverlay('assets/Mapa(Ayuda).png', bounds).addTo(this.map);
     this.map.fitBounds(bounds);
 
-    L.marker([400, 500]).addTo(this.map).bindPopup('<b>Entrada principal</b>');
-    L.marker([600, 200]).addTo(this.map).bindPopup('Aula de Informática');
+    const aulaCoords: L.LatLngBoundsExpression = [[250, 180], [520, 220]];
+    const aulaRect = L.rectangle(aulaCoords, {
+      color: "transparent",      
+      weight: 2,
+      fillOpacity: 0,            
+      fillColor: "transparent"   
+    }).addTo(this.map);
+
+    aulaRect.on('mouseover', function () {
+      aulaRect.setStyle({ 
+        fillOpacity: 0.5, 
+        color: "#ffcc00", 
+        fillColor: "#ffcc00" 
+      });
+    });
+    aulaRect.on('mouseout', function () {
+      aulaRect.setStyle({ 
+        fillOpacity: 0, 
+        color: "transparent", 
+        fillColor: "transparent" 
+      });
+    });
+    aulaRect.on('click', function () {
+      aulaRect.bindPopup('Reservar Aula de Informática').openPopup();
+    });
   }
 }
