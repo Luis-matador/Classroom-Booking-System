@@ -8,13 +8,13 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class MapComponent implements AfterViewInit {
   private map!: any;
-  selectedAula: any = null;
+  selectedRoom: any = null;
   showReservationPanel = false;
 
-  reserva = {
-    nombre: '',
-    fecha: '',
-    hora: ''
+  reservation = {
+    name: '',
+    date: '',
+    time: ''
   };
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
@@ -43,51 +43,73 @@ export class MapComponent implements AfterViewInit {
     L.imageOverlay('assets/Mapa_Final.svg', bounds).addTo(this.map);
     this.map.fitBounds(bounds);
 
-    const aulas: { nombre: string; coords: [number, number][] }[] = [
+    const rooms: { name: string; coords: [number, number][] }[] = [
       {
-        nombre: 'Aula de Informática',
+        name: 'Computer Room',
         coords: [[250, 180], [520, 220]]
       },
       {
-        nombre: 'Aula 1',
+        name: 'Room 1',
         coords: [[600, 150], [750, 250]]
       },
       {
-        nombre: 'Aula 2',
+        name: 'Room 2',
         coords: [[800, 300], [950, 400]]
       },
       {
-        nombre: 'Laboratorio',
+        name: 'Laboratory',
         coords: [[300, 600], [450, 700]]
       }
     ];
 
-    aulas.forEach(aula => {
-      const rect = L.rectangle(aula.coords, {
+    rooms.forEach(room => {
+      const highlightColor = "#00b2ff";
+      const highlightColorDark = "#0080b2";
+      const rect = L.rectangle(room.coords, {
         color: "transparent",
         weight: 2,
         fillOpacity: 0,
-        fillColor: "transparent"
+        fillColor: highlightColor
       }).addTo(this.map);
+
+      let animating = false;
+      let animationFrame: number;
+
+      const animateFill = (from: number, to: number, duration = 350) => {
+        if (animating) cancelAnimationFrame(animationFrame);
+        animating = true;
+        const start = performance.now();
+        function step(now: number) {
+          const progress = Math.min((now - start) / duration, 1);
+          const value = from + (to - from) * progress;
+          rect.setStyle({ fillOpacity: value });
+          if (progress < 1) {
+            animationFrame = requestAnimationFrame(step);
+          } else {
+            animating = false;
+          }
+        }
+        requestAnimationFrame(step);
+      };
 
       rect.on('mouseover', () => {
         rect.setStyle({
-          fillOpacity: 0.5,
-          color: "#ffcc00",
-          fillColor: "#ffcc00"
+          color: highlightColorDark,
+          fillColor: highlightColorDark
         });
+        animateFill(rect.options.fillOpacity ?? 0, 0.6, 350);
       });
 
       rect.on('mouseout', () => {
         rect.setStyle({
-          fillOpacity: 0,
           color: "transparent",
-          fillColor: "transparent"
+          fillColor: highlightColor
         });
+        animateFill(rect.options.fillOpacity ?? 0, 0, 350);
       });
 
       rect.on('click', () => {
-        this.selectedAula = aula;
+        this.selectedRoom = room;
         this.showReservationPanel = true;
       });
     });
