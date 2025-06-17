@@ -18,7 +18,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   private async initMap(): Promise<void> {
-    const L = await import('leaflet'); 
+    const L = await import('leaflet');
 
     const bounds: L.LatLngBoundsExpression = [[0, 0], [1000, 1000]];
 
@@ -27,32 +27,35 @@ export class MapComponent implements AfterViewInit {
       minZoom: -2,
       maxZoom: 2,
       maxBounds: bounds,
-      maxBoundsViscosity: 1.0 
+      maxBoundsViscosity: 1.0,
+      attributionControl: true
     });
+
+    this.map.attributionControl.setPrefix('');
 
     L.imageOverlay('assets/Mapa(Ayuda).png', bounds).addTo(this.map);
     this.map.fitBounds(bounds);
 
     const aulaCoords: L.LatLngBoundsExpression = [[250, 180], [520, 220]];
     const aulaRect = L.rectangle(aulaCoords, {
-      color: "transparent",      
+      color: "transparent",
       weight: 2,
-      fillOpacity: 0,            
-      fillColor: "transparent"   
+      fillOpacity: 0,
+      fillColor: "transparent"
     }).addTo(this.map);
 
     aulaRect.on('mouseover', function () {
-      aulaRect.setStyle({ 
-        fillOpacity: 0.5, 
-        color: "#ffcc00", 
-        fillColor: "#ffcc00" 
+      aulaRect.setStyle({
+        fillOpacity: 0.5,
+        color: "#ffcc00",
+        fillColor: "#ffcc00"
       });
     });
     aulaRect.on('mouseout', function () {
-      aulaRect.setStyle({ 
-        fillOpacity: 0, 
-        color: "transparent", 
-        fillColor: "transparent" 
+      aulaRect.setStyle({
+        fillOpacity: 0,
+        color: "transparent",
+        fillColor: "transparent"
       });
     });
     aulaRect.on('click', function () {
