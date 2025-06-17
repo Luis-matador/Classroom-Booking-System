@@ -8,6 +8,14 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class MapComponent implements AfterViewInit {
   private map!: any;
+  selectedAula: any = null;
+  showReservationPanel = false;
+
+  reserva = {
+    nombre: '',
+    fecha: '',
+    hora: ''
+  };
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
@@ -32,34 +40,56 @@ export class MapComponent implements AfterViewInit {
     });
 
     this.map.attributionControl.setPrefix('');
-
-    L.imageOverlay('assets/Mapa(Ayuda).png', bounds).addTo(this.map);
+    L.imageOverlay('assets/Mapa_Final.svg', bounds).addTo(this.map);
     this.map.fitBounds(bounds);
 
-    const aulaCoords: L.LatLngBoundsExpression = [[250, 180], [520, 220]];
-    const aulaRect = L.rectangle(aulaCoords, {
-      color: "transparent",
-      weight: 2,
-      fillOpacity: 0,
-      fillColor: "transparent"
-    }).addTo(this.map);
+    const aulas: { nombre: string; coords: [number, number][] }[] = [
+      {
+        nombre: 'Aula de Informática',
+        coords: [[250, 180], [520, 220]]
+      },
+      {
+        nombre: 'Aula 1',
+        coords: [[600, 150], [750, 250]]
+      },
+      {
+        nombre: 'Aula 2',
+        coords: [[800, 300], [950, 400]]
+      },
+      {
+        nombre: 'Laboratorio',
+        coords: [[300, 600], [450, 700]]
+      }
+    ];
 
-    aulaRect.on('mouseover', function () {
-      aulaRect.setStyle({
-        fillOpacity: 0.5,
-        color: "#ffcc00",
-        fillColor: "#ffcc00"
-      });
-    });
-    aulaRect.on('mouseout', function () {
-      aulaRect.setStyle({
-        fillOpacity: 0,
+    aulas.forEach(aula => {
+      const rect = L.rectangle(aula.coords, {
         color: "transparent",
+        weight: 2,
+        fillOpacity: 0,
         fillColor: "transparent"
+      }).addTo(this.map);
+
+      rect.on('mouseover', () => {
+        rect.setStyle({
+          fillOpacity: 0.5,
+          color: "#ffcc00",
+          fillColor: "#ffcc00"
+        });
       });
-    });
-    aulaRect.on('click', function () {
-      aulaRect.bindPopup('Reservar Aula de Informática').openPopup();
+
+      rect.on('mouseout', () => {
+        rect.setStyle({
+          fillOpacity: 0,
+          color: "transparent",
+          fillColor: "transparent"
+        });
+      });
+
+      rect.on('click', () => {
+        this.selectedAula = aula;
+        this.showReservationPanel = true;
+      });
     });
   }
 }

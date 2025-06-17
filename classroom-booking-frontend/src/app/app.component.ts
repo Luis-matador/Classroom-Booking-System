@@ -14,7 +14,7 @@ import { CalendarUtils } from 'angular-calendar';
     HomeComponent,
     ReservationListComponent
   ],
-  providers: [CalendarUtils], // Agregado aquí
+  providers: [CalendarUtils], 
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
