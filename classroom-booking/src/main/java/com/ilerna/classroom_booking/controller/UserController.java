@@ -24,8 +24,8 @@ public class UserController {
         return ResponseEntity.status(201).body(savedUser);
     }
 
-    @GetMapping("/email/{email}")
-    public ResponseEntity<User> findByEmail(@PathVariable String email) {
+    @GetMapping("/email")
+    public ResponseEntity<User> findByEmail(@RequestParam String email) {
         User user = userService.findByEmail(email);
         if (user == null) {
             return ResponseEntity.notFound().build();

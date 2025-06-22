@@ -1,5 +1,6 @@
 package com.ilerna.classroom_booking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,16 +31,23 @@ public class Classroom {
 
     @ManyToOne
     @JoinColumn(name = "type_id")
+    @JsonIgnoreProperties("aulas") // Corregido: debe coincidir con la propiedad en ClassroomType
     private ClassroomType type;
+
     @OneToMany(mappedBy = "classroom")
+    @JsonIgnoreProperties("classroom")
     private List<Booking> bookings;
+
     @ManyToMany
     @JoinTable(
             name = "classroom_equipment",
             joinColumns = @JoinColumn(name = "classroom_id"),
             inverseJoinColumns = @JoinColumn(name = "equipment_id")
     )
+    @com.fasterxml.jackson.annotation.JsonIgnore // Oculta equipments en la serialización
     private Set<Equipment> equipments = new HashSet<>();
+
     @OneToMany(mappedBy = "classroom")
+    @JsonIgnoreProperties("classroom")
     private List<Availability> availabilities;
 }

@@ -1,5 +1,6 @@
 package com.ilerna.classroom_booking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,5 +20,6 @@ public class ClassroomType {
     @Column(length = 500)
     private String descripcion;
     @OneToMany(mappedBy = "type")
+    @JsonIgnoreProperties("type")
     private List<Classroom> aulas;
 }

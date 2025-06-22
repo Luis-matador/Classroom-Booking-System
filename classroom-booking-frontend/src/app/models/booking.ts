@@ -1,6 +1,5 @@
 import { User } from './user';
 import { Classroom } from './classroom';
-import { ReservationHistory } from './reservation-history';
 
 export interface Booking {
     id: number;
@@ -10,5 +9,4 @@ export interface Booking {
     reason: string;
     user: User;
     classroom: Classroom;
-    reservationHistories: ReservationHistory[];
 }

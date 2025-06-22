@@ -21,12 +21,12 @@ public class EquipmentImpl implements EquipmentService {
     @Transactional
     @Override
     public Equipment saveEquipment(Equipment equipment) {
-        if (equipment.getEquimentName() == null || equipment.getEquimentName().trim().isEmpty()) {
+        if (equipment.getEquipmentName() == null || equipment.getEquipmentName().trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre del equipamiento no puede estar vacío");
         }
 
         if (equipmentRepository.findAll().stream()
-                .anyMatch(e -> e.getEquimentName().equalsIgnoreCase(equipment.getEquimentName()))) {
+                .anyMatch(e -> e.getEquipmentName().equalsIgnoreCase(equipment.getEquipmentName()))) {
             throw new IllegalArgumentException("Ya existe un equipamiento con ese nombre");
         }
 
@@ -55,13 +55,13 @@ public class EquipmentImpl implements EquipmentService {
             throw new IllegalArgumentException("El equipamiento con el ID especificado no existe");
         }
 
-        if (equipment.getEquimentName() == null || equipment.getEquimentName().trim().isEmpty()) {
+        if (equipment.getEquipmentName() == null || equipment.getEquipmentName().trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre del equipamiento no puede estar vacío");
         }
 
         if (equipmentRepository.findAll().stream()
                 .filter(e -> !e.getId().equals(equipment.getId()))
-                .anyMatch(e -> e.getEquimentName().equalsIgnoreCase(equipment.getEquimentName()))) {
+                .anyMatch(e -> e.getEquipmentName().equalsIgnoreCase(equipment.getEquipmentName()))) {
             throw new IllegalArgumentException("Ya existe un equipamiento con ese nombre");
         }
     

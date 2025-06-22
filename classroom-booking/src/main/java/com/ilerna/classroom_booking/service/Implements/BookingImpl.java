@@ -48,7 +48,17 @@ public class BookingImpl implements BookingService {
         if (booking.getReason() == null || booking.getReason().trim().isEmpty()) {
             throw new IllegalArgumentException("El motivo debe ser especificado");
         }
-    
+
+        List<Booking> overlapping = bookingRepository.findOverlappingBookings(
+                booking.getClassroom().getId(),
+                booking.getStartDate(),
+                booking.getEndDate()
+        );
+
+        if (!overlapping.isEmpty()) {
+            throw new IllegalArgumentException("Ya existe una reserva para este aula en ese rango horario.");
+        }
+
         return bookingRepository.save(booking);
     }
 

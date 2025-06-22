@@ -1,5 +1,6 @@
 package com.ilerna.classroom_booking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,9 +23,7 @@ public class Rol {
     @Column(nullable = false, length = 255)
     private String description;
     @OneToMany(mappedBy = "rol")
+    @JsonIgnoreProperties("rol")
     private List<User> users;
-    @OneToMany(mappedBy = "rol")
-    private List<ReservationHistory> reservationHistories;
-
 
 }

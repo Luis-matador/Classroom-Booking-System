@@ -1,5 +1,6 @@
 package com.ilerna.classroom_booking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +27,9 @@ public class User {
     private String password;
     @ManyToOne
     @JoinColumn(name = "rol_id")
+    @JsonIgnoreProperties("users")
     private Rol rol;
     @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties("users")
     private List<Booking> reservations;
 }

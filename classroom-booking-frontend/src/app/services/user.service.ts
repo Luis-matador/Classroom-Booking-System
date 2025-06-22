@@ -17,7 +17,7 @@ export class UserService {
   }
 
   findByEmail(email: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/email/${email}`);
+    return this.http.get<User>(`${this.apiUrl}/email?email=${encodeURIComponent(email)}`);
   }
 
   getUserById(id: number): Observable<User> {

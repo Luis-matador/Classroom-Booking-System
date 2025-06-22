@@ -1,23 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CalendarUtils } from 'angular-calendar';
 import { RouterOutlet } from '@angular/router';
-
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { HomeComponent } from './pages/home/home.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
+  imports: [RouterOutlet,
     CommonModule,
-    RouterOutlet,
-    HeaderComponent,
-    FooterComponent
   ],
+  providers: [CalendarUtils],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
-  
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'classroom-booking-frontend';

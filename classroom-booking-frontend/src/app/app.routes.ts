@@ -1,10 +1,14 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { MapComponent } from './pages/map/map.component';
+import { ReservationListComponent } from './pages/reservation-list/reservation-list.component';
+import { BookingComponent } from './pages/booking/booking.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login', component: LoginComponent },
     { path: 'home', component: HomeComponent },
-    { path: '*', redirectTo: 'home' },
-    { path: 'map', component: MapComponent }
+    { path: 'reservations', component: ReservationListComponent },
+    { path: 'booking', component: BookingComponent },
+    { path: '**', redirectTo: 'login' }
 ];

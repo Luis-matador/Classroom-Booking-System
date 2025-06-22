@@ -1,5 +1,6 @@
 package com.ilerna.classroom_booking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,5 +21,6 @@ public class Equipment {
     @Column(nullable = false)
     private String equipmentName;
     @ManyToMany(mappedBy = "equipments")
+    @JsonIgnoreProperties("equipments")
     private Set<Classroom> classrooms = new HashSet<>();
 }

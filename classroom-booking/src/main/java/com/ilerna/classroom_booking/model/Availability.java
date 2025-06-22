@@ -1,5 +1,6 @@
 package com.ilerna.classroom_booking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +23,6 @@ public class Availability {
     private String endTime;
     @ManyToOne
     @JoinColumn(name = "classroom_id", nullable = false)
+    @JsonIgnoreProperties("availabilities")
     private Classroom classroom;
 }

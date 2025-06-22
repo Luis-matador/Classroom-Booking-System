@@ -1,0 +1,82 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card p-4 shadow" style="min-width: 320px; max-width: 340px; background: #2d2d2d; color: #fff;">
+    <!-- Pills navs -->
+    <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-login-tab" data-bs-toggle="pill" data-bs-target="#pills-login"
+          type="button" role="tab" aria-controls="pills-login" aria-selected="true">ACCESO</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-register-tab" data-bs-toggle="pill" data-bs-target="#pills-register"
+          type="button" role="tab" aria-controls="pills-register" aria-selected="false">REGISTRO</button>
+      </li>
+    </ul>
+    <!-- Pills content -->
+    <div class="tab-content" id="pills-tabContent" style="min-height: 480px;">
+      <!-- Login Tab -->
+      <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <div class="form-outline mb-3">
+            <input type="email" formControlName="email" class="form-control" placeholder="Correo electrónico o nombre de usuario" />
+          </div>
+          <div class="form-outline mb-3">
+            <input type="password" formControlName="password" class="form-control" placeholder="Contraseña" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block w-100 mb-3">INICIAR SESIÓN</button>
+          @if (loginError) {
+            <div class="alert alert-danger py-1">{{ loginError }}</div>
+          }
+        </form>
+      </div>
+      <!-- Register Tab -->
+      <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="pills-register-tab">
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+          <div class="form-outline mb-3">
+            <input type="text" formControlName="name" class="form-control" placeholder="Nombre" />
+          </div>
+          <div class="form-outline mb-3">
+            <input type="text" formControlName="lastName" class="form-control" placeholder="Apellido" />
+          </div>
+          <div class="form-outline mb-3">
+            <input type="email" formControlName="email" class="form-control" placeholder="Correo electrónico" />
+            @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+              @if (registerForm.get('email')?.errors?.['required']) {
+                <div class="text-danger small">El correo es obligatorio.</div>
+              }
+              @if (registerForm.get('email')?.errors?.['email']) {
+                <div class="text-danger small">El formato del correo no es válido.</div>
+              }
+            }
+          </div>
+          <div class="form-outline mb-3">
+            <input type="password" formControlName="password" class="form-control" placeholder="Contraseña" />
+            @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+              @if (registerForm.get('password')?.errors?.['required']) {
+                <div class="text-danger small">La contraseña es obligatoria.</div>
+              }
+              @if (registerForm.get('password')?.errors?.['minlength']) {
+                <div class="text-danger small">La contraseña debe tener al menos 6 caracteres.</div>
+              }
+            }
+          </div>
+          <div class="form-outline mb-3">
+            <label for="registerRole" class="form-label">Rol</label>
+            <select formControlName="rol" id="registerRole" class="form-control">
+              <option value="" disabled>Seleccione un rol</option>
+              <option value="1">Rol 1</option>
+              <option value="2">Rol 2</option>
+              <option value="3">Rol 3</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block w-100 mb-3">REGISTRARSE</button>
+          @if (registerError) {
+            <div class="alert alert-danger py-1">{{ registerError }}</div>
+          }
+          @if (registerSuccess) {
+            <div class="alert alert-success py-1">{{ registerSuccess }}</div>
+          }
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
