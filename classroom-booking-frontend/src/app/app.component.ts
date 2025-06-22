@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CalendarUtils } from 'angular-calendar';
 import { RouterOutlet } from '@angular/router';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -10,6 +11,7 @@ import { RouterOutlet } from '@angular/router';
     CommonModule,
   ],
   providers: [CalendarUtils],
+
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

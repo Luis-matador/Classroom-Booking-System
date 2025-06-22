@@ -4,6 +4,7 @@ import { CalendarModule, CalendarEvent, CalendarView } from 'angular-calendar';
 import { Subject } from 'rxjs';
 import { BookingService } from '../../services/booking.service';
 
+
 @Component({
   standalone: true,
   selector: 'app-reservation-list',
@@ -19,11 +20,14 @@ export class ReservationListComponent {
   refresh: Subject<any> = new Subject();
   events: CalendarEvent[] = [];
 
+
   constructor(private bookingService: BookingService) {
+
     this.loadReservations();
   }
 
   loadReservations(): void {
+
     this.bookingService.getAllBookings().subscribe(
       (histories) => {
         console.log('Reservas recibidas:', histories);
@@ -66,6 +70,7 @@ export class ReservationListComponent {
     });
   }
 
+
   previousMonth(): void {
     this.viewDate = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth() - 1, 1);
   }
@@ -79,6 +84,7 @@ export class ReservationListComponent {
   }
 
   goHome() {
+
     window.location.href = '/home';
   }
 
@@ -91,5 +97,6 @@ export class ReservationListComponent {
 
   onEventClicked({ event }: { event: CalendarEvent }): void {
     alert(event.title);
+
   }
 }
