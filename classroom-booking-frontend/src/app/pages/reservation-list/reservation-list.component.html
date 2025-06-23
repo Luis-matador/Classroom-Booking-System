@@ -1,14 +1,18 @@
 <div class="calendar-container">
-  <div class="controls" style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-    <div>
+  <div class="controls" style="display: flex; justify-content: space-between; margin-bottom: 1rem; align-items: center;">
+    <div style="display: flex; gap: 0.5rem;">
       <button (click)="previousMonth()">Mes anterior</button>
       <button (click)="today()">Hoy</button>
       <button (click)="nextMonth()">Mes siguiente</button>
+    </div>
+    <div style="font-weight: bold; font-size: 1.2rem; text-transform: capitalize;">
+      {{ formattedMonth }}
     </div>
     <div>
       <button (click)="goHome()">Volver al inicio</button>
     </div>
   </div>
+
   <mwl-calendar-month-view
     [viewDate]="viewDate"
     [events]="events"

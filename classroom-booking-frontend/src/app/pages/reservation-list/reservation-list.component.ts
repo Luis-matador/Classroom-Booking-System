@@ -89,6 +89,13 @@ export class ReservationListComponent {
     return this.viewDate.getMonth() + 1;
   }
 
+  get formattedMonth(): string {
+    return this.viewDate.toLocaleDateString('es-ES', {
+      month: 'long',
+      year: 'numeric'
+    });
+  }
+
   onEventClicked({ event }: { event: CalendarEvent }): void {
     alert(event.title);
   }
