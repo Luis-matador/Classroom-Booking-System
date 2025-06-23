@@ -6,6 +6,7 @@ import { User } from '../../models/user';
 import { ReactiveFormsModule } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent {
     constructor(
         private fb: FormBuilder,
         private userService: UserService,
-        private router: Router
+        private router: Router,
+        private auth: AuthService
     ) {
         this.loginForm = this.fb.group({
             email: ['', [Validators.required]],
@@ -46,7 +48,7 @@ export class LoginComponent {
         this.userService.findByEmail(email).subscribe({
             next: (user: User) => {
                 if (user && user.password === password) {
-                    // Aquí puedes guardar el usuario en localStorage o un servicio de sesión
+                    this.auth.setLoginActive(true);
                     this.router.navigate(['/home']);
                 } else {
                     this.loginError = 'Credenciales incorrectas.';
@@ -72,10 +74,8 @@ export class LoginComponent {
         this.userService.findByEmail(email).pipe(
             catchError(err => {
                 if (err.status === 404) {
-                    // Usuario no existe, devolvemos null para continuar el flujo
                     return of(null);
                 }
-                // Otros errores, los relanzamos
                 throw err;
             })
         ).subscribe({
@@ -83,7 +83,6 @@ export class LoginComponent {
                 if (user) {
                     this.registerError = 'Ya existe un usuario con ese correo.';
                 } else {
-                    // Aquí creas el usuario normalmente
                     const newUser: User = {
                         id: 0,
                         name,
