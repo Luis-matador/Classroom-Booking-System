@@ -1,7 +1,3 @@
-img{
-    width: 65%;
-
-}
 .page-container {
   display: flex;
   flex-direction: column;
@@ -21,10 +17,42 @@ img{
 }
 
 .carousel-item img {
-  max-width: 65%;
+  width: 75%;        
   height: auto;
-  margin: 0 auto;
+  border-radius: 3%;   
+  object-fit: cover;    
+  max-height: 1500px;   
+  transition: transform 0.3s ease;
 }
+
+.carousel-control-prev,
+.carousel-control-next {
+  background: none !important; 
+  width: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.carousel-control-prev-icon.custom-arrow,
+.carousel-control-next-icon.custom-arrow {
+  background-image: none; 
+  width: 2rem;
+  height: 2rem;
+  display: inline-block;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  padding: 4px;
+}
+
+.carousel-control-prev-icon.custom-arrow {
+  transform: rotate(135deg);
+}
+
+.carousel-control-next-icon.custom-arrow {
+  transform: rotate(-45deg);
+}
+
+
 
 
 

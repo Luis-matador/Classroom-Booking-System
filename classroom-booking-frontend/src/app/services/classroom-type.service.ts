@@ -9,7 +9,7 @@ import { ClassroomType } from '../models/classroom-type';
 })
 
 export class ClassroomTypeService {
-  private baseUrl = '/api/classroom-types';
+  private baseUrl = 'http://localhost:8080/classroom-types';
 
   constructor(private http: HttpClient) { }
 

@@ -1,0 +1,116 @@
+<div class="container mt-4">
+  <h2>Gestión de Reservas</h2>
+
+  <div class="mb-3">
+    <a [routerLink]="['/home']" class="btn btn-outline-primary">
+      <i class="bi bi-house-door-fill me-1"></i> Volver al inicio
+    </a>
+  </div>
+
+  <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+
+  @if (!selectedBooking) {
+    <form (ngSubmit)="saveBooking()" class="mb-4">
+      <div class="mb-2">
+        <input [(ngModel)]="newBooking.startDate" name="startDate" type="datetime-local" class="form-control" placeholder="Inicio" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="newBooking.endDate" name="endDate" type="datetime-local" class="form-control" placeholder="Fin" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="newBooking.reason" name="reason" class="form-control" placeholder="Motivo" required>
+      </div>
+      <div class="mb-2">
+        <select [(ngModel)]="newBooking.user" name="user" class="form-control" required>
+          <option [ngValue]="undefined" disabled selected>Selecciona un usuario</option>
+          @for (user of users; track user.id) {
+            <option [ngValue]="user">{{ user.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="mb-2">
+        <select [(ngModel)]="newBooking.classroom" name="classroom" class="form-control" required>
+          <option [ngValue]="undefined" disabled selected>Selecciona un aula</option>
+          @for (classroom of classrooms; track classroom.id) {
+            <option [ngValue]="classroom">{{ classroom.name }}</option>
+          }
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Crear Reserva</button>
+    </form>
+  }
+
+  @if (selectedBooking) {
+    <form (ngSubmit)="updateBooking()" class="mb-4">
+      <div class="mb-2">
+        <input [(ngModel)]="selectedBooking!.startDate" name="editStartDate" type="datetime-local" class="form-control" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="selectedBooking!.endDate" name="editEndDate" type="datetime-local" class="form-control" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="selectedBooking!.reason" name="editReason" class="form-control" required>
+      </div>
+      <div class="mb-2">
+        <select [(ngModel)]="selectedBooking!.user" name="editUser" class="form-control" required>
+          <option [ngValue]="undefined" disabled>Selecciona un usuario</option>
+          @for (user of users; track user.id) {
+            <option [ngValue]="user">{{ user.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="mb-2">
+        <select [(ngModel)]="selectedBooking!.classroom" name="editClassroom" class="form-control" required>
+          <option [ngValue]="undefined" disabled>Selecciona un aula</option>
+          @for (classroom of classrooms; track classroom.id) {
+            <option [ngValue]="classroom">{{ classroom.name }}</option>
+          }
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success">Actualizar</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="cancelEdit()">Cancelar</button>
+    </form>
+  }
+
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Motivo</th>
+        <th>Usuario</th>
+        <th>Aula</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    @if (bookings.length > 0) {
+      <tbody>
+        @for (booking of bookings; track booking.id) {
+          <tr>
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.startDate }}</td>
+            <td>{{ booking.endDate }}</td>
+            <td>{{ booking.reason }}</td>
+            <td>{{ booking.user.name }}</td>
+            <td>{{ booking.classroom.name }}</td>
+            <td>
+              <span [ngClass]="{
+                'badge bg-success': booking.state === 'EN_CURSO',
+                'badge bg-warning text-dark': booking.state === 'PENDIENTE',
+                'badge bg-secondary': booking.state === 'PASADA'
+              }">
+                {{ booking.state }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-warning btn-sm me-2" (click)="editBooking(booking)">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteBooking(booking.id)">Eliminar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    }
+  </table>
+</div>

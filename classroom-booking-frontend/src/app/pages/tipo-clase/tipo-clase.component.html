@@ -1,0 +1,60 @@
+<div class="container mt-4">
+  <h2>Gestión de Tipos de Clase</h2>
+
+  <div class="mb-3">
+    <a [routerLink]="['/home']" class="btn btn-outline-primary">
+      <i class="bi bi-house-door-fill me-1"></i> Volver al inicio
+    </a>
+  </div>
+
+  @if (!selectedTipo) {
+    <form (ngSubmit)="saveTipo()" class="mb-4">
+      <div class="mb-2">
+        <input [(ngModel)]="newTipo.nombreTipo" name="nombreTipo" class="form-control" placeholder="Nombre del tipo" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="newTipo.descripcion" name="descripcion" class="form-control" placeholder="Descripción">
+      </div>
+      <button type="submit" class="btn btn-primary">Crear Tipo</button>
+    </form>
+  }
+
+  @if (selectedTipo) {
+    <form (ngSubmit)="updateTipo()" class="mb-4">
+      <div class="mb-2">
+        <input [(ngModel)]="selectedTipo!.nombreTipo" name="editNombreTipo" class="form-control" placeholder="Nombre del tipo" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="selectedTipo!.descripcion" name="editDescripcion" class="form-control" placeholder="Descripción">
+      </div>
+      <button type="submit" class="btn btn-success">Actualizar</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="cancelEdit()">Cancelar</button>
+    </form>
+  }
+
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    @if (tiposClase.length > 0) {
+      <tbody>
+        @for (tipo of tiposClase; track tipo.id) {
+          <tr>
+            <td>{{ tipo.id }}</td>
+            <td>{{ tipo.nombreTipo }}</td>
+            <td>{{ tipo.descripcion }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm me-2" (click)="editTipo(tipo)">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteTipo(tipo.id)">Eliminar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    }
+  </table>
+</div>

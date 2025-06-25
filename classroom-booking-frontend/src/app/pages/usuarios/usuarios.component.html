@@ -1,0 +1,90 @@
+<div class="container mt-4">
+  <h2>Gestión de Usuarios</h2>
+
+  <!-- Botón volver -->
+  <div class="mb-3">
+    <a [routerLink]="['/home']" class="btn btn-outline-primary">
+      <i class="bi bi-house-door-fill me-1"></i> Volver al inicio
+    </a>
+  </div>
+
+  <!-- Formulario Crear Usuario -->
+  @if (!selectedUser) {
+    <form (ngSubmit)="saveUser()" class="mb-4">
+      <div class="mb-2">
+        <input [(ngModel)]="newUser.name" name="name" class="form-control" placeholder="Nombre" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="newUser.lastName" name="lastName" class="form-control" placeholder="Apellidos" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="newUser.email" name="email" type="email" class="form-control" placeholder="Correo electrónico" required>
+      </div>
+      <div class="mb-2">
+        <select [(ngModel)]="newUser.rol" name="rol" class="form-control" required>
+          <option [ngValue]="undefined" disabled selected>Selecciona un rol</option>
+          @for (rol of roles; track rol.id) {
+            <option [ngValue]="rol">{{ rol.rolName }}</option>
+          }
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Crear Usuario</button>
+    </form>
+  }
+
+  <!-- Formulario Editar Usuario -->
+  @if (selectedUser) {
+    <form (ngSubmit)="updateUser()" class="mb-4">
+      <div class="mb-2">
+        <input [(ngModel)]="selectedUser!.name" name="editName" class="form-control" placeholder="Nombre" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="selectedUser!.lastName" name="editLastName" class="form-control" placeholder="Apellidos" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="selectedUser!.email" name="editEmail" type="email" class="form-control" placeholder="Correo electrónico" required>
+      </div>
+      <div class="mb-2">
+        <select [(ngModel)]="selectedUser!.rol" name="editRol" class="form-control" required>
+          <option [ngValue]="undefined" disabled selected>Selecciona un rol</option>
+          @for (rol of roles; track rol.id) {
+            <option [ngValue]="rol">{{ rol.rolName }}</option>
+          }
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success">Actualizar</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="cancelEdit()">Cancelar</button>
+    </form>
+  }
+
+  <!-- Tabla de Usuarios -->
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    @if (users.length > 0) {
+      <tbody>
+        @for (user of users; track user.id) {
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.rol.rolName }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm me-2" (click)="editUser(user)">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Eliminar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    }
+  </table>
+</div>

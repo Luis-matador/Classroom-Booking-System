@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <h2>Gestión de Roles</h2>
+
+  <div class="mb-3">
+    <a [routerLink]="['/home']" class="btn btn-outline-primary">
+      <i class="bi bi-house-door-fill me-1"></i> Volver al inicio
+    </a>
+  </div>
+
+  <!-- Formulario Crear Rol -->
+  @if (!selectedRol) {
+    <form (ngSubmit)="saveRol()" class="mb-4">
+      <div class="mb-2">
+        <input [(ngModel)]="newRol.rolName" name="rolName" class="form-control" placeholder="Nombre del rol" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="newRol.description" name="description" class="form-control" placeholder="Descripción" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Crear Rol</button>
+    </form>
+  }
+
+  <!-- Formulario Editar Rol -->
+  @if (selectedRol) {
+    <form (ngSubmit)="updateRol()" class="mb-4">
+      <div class="mb-2">
+        <input [(ngModel)]="selectedRol.rolName" name="editRolName" class="form-control" placeholder="Nombre del rol" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="selectedRol.description" name="editDescription" class="form-control" placeholder="Descripción" required>
+      </div>
+      <button type="submit" class="btn btn-success">Actualizar</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="cancelEdit()">Cancelar</button>
+    </form>
+  }
+
+  <!-- Tabla de Roles -->
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (rol of roles; track rol.id) {
+        <tr>
+          <td>{{ rol.id }}</td>
+          <td>{{ rol.rolName }}</td>
+          <td>{{ rol.description }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm me-2" (click)="editRol(rol)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteRol(rol.id!)">Eliminar</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

@@ -31,23 +31,10 @@ public class Classroom {
 
     @ManyToOne
     @JoinColumn(name = "type_id")
-    @JsonIgnoreProperties("aulas") // Corregido: debe coincidir con la propiedad en ClassroomType
+    @JsonIgnoreProperties("aulas")
     private ClassroomType type;
 
     @OneToMany(mappedBy = "classroom")
     @JsonIgnoreProperties("classroom")
     private List<Booking> bookings;
-
-    @ManyToMany
-    @JoinTable(
-            name = "classroom_equipment",
-            joinColumns = @JoinColumn(name = "classroom_id"),
-            inverseJoinColumns = @JoinColumn(name = "equipment_id")
-    )
-    @com.fasterxml.jackson.annotation.JsonIgnore // Oculta equipments en la serialización
-    private Set<Equipment> equipments = new HashSet<>();
-
-    @OneToMany(mappedBy = "classroom")
-    @JsonIgnoreProperties("classroom")
-    private List<Availability> availabilities;
 }

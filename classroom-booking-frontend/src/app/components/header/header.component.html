@@ -1,27 +1,65 @@
-<nav class="navbar navbar-dark bg-light py-3">
-  <div class="container">
-    <h1 class="navbar-brand h1">ILERNA</h1>
-    <button class="navbar-toggler bg-black" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+<nav class="navbar navbar-dark bg-light py-3 w-100">
+  <div class="container d-flex justify-content-between align-items-center" style="min-height: 64px;">
+    <!-- Botón menú izquierdo -->
+    <button class="navbar-toggler bg-black me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeftNavbar" aria-controls="offcanvasLeftNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
-        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item-1">
-            <a class="nav-link" [routerLink]="['/reservations']">Mis Reservas</a>
-          </li>
-          <li class="nav-item-1">
-            <a class="nav-link" [routerLink]="['/booking']">Reservar</a>
-          </li>
-            <li class="nav-item-1">
-            <a class="nav-link" href="#" (click)="logOut()">Cerrar sesión</a>
-            </li>
-        </ul>
-      </div>
+
+    <!-- Título centrado -->
+    <h1 class="navbar-brand h1 m-0 text-center flex-grow-1">ILERNA</h1>
+
+    <!-- Botón menú derecho -->
+    <button class="navbar-toggler bg-black ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+
+  <!-- Menú izquierdo -->
+  <div class="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasLeftNavbar" aria-labelledby="offcanvasLeftNavbarLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasLeftNavbarLabel">Administración</h5>
+      <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        
+        <li class="nav-item-1">
+          <a class="nav-link" routerLink="/reservas">Reservas</a>
+        </li>
+        <li class="nav-item-1">
+          <a class="nav-link" routerLink="/roles">Roles</a>
+        </li>
+        <li class="nav-item-1">
+          <a class="nav-link" routerLink="/usuarios">Usuarios</a>
+        </li>
+        <li class="nav-item-1">
+          <a class="nav-link" routerLink="/tipo-clase">Tipo-clase</a>
+        </li>
+        <li class="nav-item-1">
+          <a class="nav-link" routerLink="/clase" >Clase</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Menú derecho -->
+  <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+      <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <li class="nav-item-1">
+          <a class="nav-link" [routerLink]="['/reservations']">Mis Reservas</a>
+        </li>
+        <li class="nav-item-1">
+          <a class="nav-link" [routerLink]="['/booking']">Reservar</a>
+        </li>
+        <li class="nav-item-1">
+          <a class="nav-link" href="#" (click)="logOut()">Cerrar sesión</a>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>

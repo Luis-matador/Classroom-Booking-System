@@ -1,0 +1,77 @@
+<div class="container mt-4">
+  <h2>Gestión de Clases</h2>
+
+  <div class="mb-3">
+    <a [routerLink]="['/home']" class="btn btn-outline-primary">
+      <i class="bi bi-house-door-fill me-1"></i> Volver al inicio
+    </a>
+  </div>
+
+  @if (!selectedClassroom) {
+    <form (ngSubmit)="saveClassroom()" class="mb-4">
+      <div class="mb-2">
+        <input [(ngModel)]="newClassroom.name" name="name" class="form-control" placeholder="Nombre" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="newClassroom.capacity" name="capacity" type="number" class="form-control" placeholder="Capacidad" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="newClassroom.location" name="location" class="form-control" placeholder="Ubicación" required>
+      </div>
+      <div class="mb-2">
+        <select [(ngModel)]="newClassroom.type" name="type" class="form-control" required>
+          <option [ngValue]="undefined" disabled selected>Selecciona tipo de clase</option>
+          @for (type of classroomTypes; track type.id) {
+            <option [ngValue]="type">{{ type.nombreTipo }}</option>
+          }
+        </select>
+      </div>
+      <!-- Aquí podrías añadir un select para el tipo y equipamiento si lo necesitas -->
+      <button type="submit" class="btn btn-primary">Crear Clase</button>
+    </form>
+  }
+
+  @if (selectedClassroom) {
+    <form (ngSubmit)="updateClassroom()" class="mb-4">
+      <div class="mb-2">
+        <input [(ngModel)]="selectedClassroom!.name" name="editName" class="form-control" placeholder="Nombre" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="selectedClassroom!.capacity" name="editCapacity" type="number" class="form-control" placeholder="Capacidad" required>
+      </div>
+      <div class="mb-2">
+        <input [(ngModel)]="selectedClassroom!.location" name="editLocation" class="form-control" placeholder="Ubicación" required>
+      </div>
+      <button type="submit" class="btn btn-success">Actualizar</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="cancelEdit()">Cancelar</button>
+    </form>
+  }
+
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Capacidad</th>
+        <th>Ubicación</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    @if (classrooms.length > 0) {
+      <tbody>
+        @for (classroom of classrooms; track classroom.id) {
+          <tr>
+            <td>{{ classroom.id }}</td>
+            <td>{{ classroom.name }}</td>
+            <td>{{ classroom.capacity }}</td>
+            <td>{{ classroom.location }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm me-2" (click)="editClassroom(classroom)">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteClassroom(classroom.id)">Eliminar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    }
+  </table>
+</div>
